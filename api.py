@@ -8,7 +8,7 @@ import uuid
 from GenAI_playground.blog_creator import generate_blog
 from GenAI_playground.support_assistant import handle_review
 from GenAI_playground.chat_csv import run_csv_chatbot
-
+from GenAI_playground.cover_letter_builder import *
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
@@ -24,6 +24,14 @@ csv_store = {}
 class TextRequest(BaseModel):
     text: str
     task_type: str  # "blog" or "support"
+
+class QueryRequest(BaseModel):
+    file_id: str
+    query: str
+
+class CoverLetterRequest(BaseModel):
+    job_title: str
+    job_description: str
 
 
 @app.post("/generate")
@@ -56,7 +64,31 @@ async def generate_text(request: TextRequest):
             status_code=500,
             content={"status": "error", "message": str(e)}
         )
-    
+
+@app.post("/generateCoverLetter")
+async def generate_text(request: CoverLetterRequest):
+    try:
+        result = handle_cover_letter(
+            job_title=request.job_title,
+            job_description=request.job_description,
+            model=model
+        )
+
+        return JSONResponse(
+            status_code=200,
+            content={
+                "status": "success",
+                "resume_bullets": result.get("resume_bullets"),
+                "cover_letter": result.get("cover_letter")
+            }
+        )
+
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"status": "error", "message": str(e)}
+        )
+
 @app.post("/upload")
 async def upload_csv(file: UploadFile = File(...)):
     try:
@@ -106,9 +138,6 @@ async def preview_csv(file_id: str):
             content={"status": "error", "message": str(e)}
         )
 
-class QueryRequest(BaseModel):
-    file_id: str
-    query: str
 
 
 @app.post("/csv/query")
