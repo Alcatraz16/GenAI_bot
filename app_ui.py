@@ -14,7 +14,7 @@ if "file_id" not in st.session_state:
 # ---------------- MENU ----------------
 option = st.selectbox(
     "Choose Application",
-    ["Blog Generator", "Support Assistant", "Chat with CSV"]
+    ["Blog Generator", "Support Assistant", "Cover Letter Generator", "Chat with CSV"]
 )
 
 # =========================================================
@@ -69,6 +69,42 @@ elif option == "Support Assistant":
                 st.error(result["message"])
         else:
             st.warning("Enter a review")
+
+
+# =========================================================
+# 📊 COVER LETTER GENERATOR
+# =========================================================
+
+elif option == "Cover Letter Generator":
+    st.header("💼 Cover Letter Generator")
+    
+    job_title = st.text_input("Enter Job Title")
+    job_description = st.text_area("Enter Job Description", height=100)
+
+    if st.button("Generate Cover Letter"):
+        if job_title and job_description:
+            with st.spinner("Generating..."):
+                res = requests.post(
+                    f"{API_URL}/generateCoverLetter",
+                    json={
+                        "job_title": job_title,
+                        "job_description": job_description
+                    },
+                    timeout=90
+                )
+                result = res.json()
+
+            if result["status"] == "success":
+                st.subheader("📌 Resume Bullet Points")
+                st.write(result["resume_bullets"])
+
+                st.subheader("📄 Cover Letter")
+                st.write(result["cover_letter"])
+            else:
+                st.error(result["message"])
+        else:
+            st.warning("Please enter both fields")
+
 
 
 # =========================================================
