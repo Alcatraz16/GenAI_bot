@@ -5,6 +5,8 @@ import streamlit as st
 from GenAI_playground.blog_creator import generate_blog
 from GenAI_playground.support_assistant import handle_review
 from GenAI_playground.chat_csv import run_csv_chatbot
+from GenAI_playground.sentiment_multiagent import run_customer_service
+from GenAI_playground.cover_letter_builder import *
 # from GenAI_playground.chat_pdf import create_vectordb, generate_summary, run_qna
 import pandas as pd
 import tempfile
@@ -24,7 +26,7 @@ st.title("🚀 GenAI Playground")
 
 option = st.selectbox(
     "Choose Application",
-    ["Blog Generator", "Support Assistant","Chat with CSV"]
+    ["Blog Generator", "Support Assistant","Chat with CSV","Sentiment Analyzer using Multiagent","Cover Letter Generator"]
 )
 
 #######------Blog Generator-----##########
@@ -103,6 +105,62 @@ elif option =="Chat with CSV":
                 
                 if response.get("error"):
                     st.error(f"⚠️ Error: {response['error']}")
+
+
+#######------Sentiment Analyzer using Multiagent-----##########
+elif option =="Sentiment Analyzer using Multiagent":
+    st.header("📞 Customer Sentiment Analyzer using Multiagent")
+    query = st.text_area("Enter your query:")
+    if st.button("Submit"):
+        if not query.strip():
+            st.warning("Please enter a query.")
+        else:
+            result = run_customer_service(query, model)
+            st.subheader("🔍 Analysis")
+            col1, col2 = st.columns(2)
+
+            with col1:
+                st.write( result["category"])
+
+            with col2:
+                st.write("**Sentiment:**", result["sentiment"])
+            
+            st.subheader("💬 Response")
+            st.write(result["response"])
+
+#######------Cover Letter Generator-----##########
+elif option == "Cover Letter Generator":
+    st.header("💼 Cover Letter Generator")
+    job_title = st.text_input("Enter Job Title")
+    job_description = st.text_area("Enter Job Description", height=100)
+
+    if st.button("Generate Cover Letter"):
+        if job_title and job_description:
+            with st.spinner("Generating..."):
+                result = handle_cover_letter(
+                job_title= job_title,
+                job_description= job_description,
+                model=model
+            )
+             
+            if result.get("status") == "success":
+                st.subheader("📌 Resume Bullet Points")
+                bullets = result.get("resume_bullets", "")
+                if bullets:
+                    st.markdown(bullets)
+                else:
+                    st.info("No bullet points generated.")
+
+                st.subheader("📄 Cover Letter")
+                cover_letter = result.get("cover_letter", "")
+                if cover_letter:
+                    st.markdown(cover_letter)
+                else:
+                    st.info("No cover letter generated.")
+
+        else:
+            st.warning("Please enter both fields")
+
 
 #######------Chat with PDF-----##########
 # elif option == "Chat with PDF":

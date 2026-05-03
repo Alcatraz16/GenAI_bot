@@ -14,7 +14,7 @@ if "file_id" not in st.session_state:
 # ---------------- MENU ----------------
 option = st.selectbox(
     "Choose Application",
-    ["Blog Generator", "Support Assistant", "Cover Letter Generator", "Chat with CSV"]
+    ["Blog Generator", "Support Assistant", "Cover Letter Generator", "Chat with CSV", "Sentiment Analyzer using Multiagent"]
 )
 
 # =========================================================
@@ -105,7 +105,9 @@ elif option == "Cover Letter Generator":
         else:
             st.warning("Please enter both fields")
 
-
+# =========================================================
+# 📊 Sentiment Analyzer using Multiagent
+# =========================================================
 
 # =========================================================
 # 📊 CSV CHATBOT

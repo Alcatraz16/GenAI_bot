@@ -9,6 +9,7 @@ from GenAI_playground.blog_creator import generate_blog
 from GenAI_playground.support_assistant import handle_review
 from GenAI_playground.chat_csv import run_csv_chatbot
 from GenAI_playground.cover_letter_builder import *
+from GenAI_playground.sentiment_multiagent import run_customer_service
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
@@ -16,8 +17,9 @@ load_dotenv()
 app = FastAPI()
 
 model = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
-    temperature=0.5
+    model="gemini-3-flash-preview",
+    temperature=0.5,
+    max_retries=1
 )
 
 csv_store = {}
@@ -45,6 +47,8 @@ async def generate_text(request: TextRequest):
             result = handle_review(request.text, model)
             output = result.get("response")
 
+        elif request.task_type == "sentiment_analyzer":
+            result = run_customer_service(request.text, model)
         else:
             return JSONResponse(
                 status_code=400,
