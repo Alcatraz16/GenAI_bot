@@ -116,6 +116,16 @@ Technical Agent   Billing Agent   General Agent   Escalation Agent
 * **Language**: Python
 
 ---
+###🏗️ **Production Experience**
+While this repository demonstrates a simplified prototype, similar systems have been implemented in production environments with:
+
+- Dockerized services for scalable deployments
+- CI/CD pipelines using GitHub Actions
+- Infrastructure provisioning using Terraform
+- Cloud deployment (AWS and GCP )
+- Secure API key using AWS secret managers
+- Monitoring and logging for observability using AWS Putty
+---
 
 ## 📂 Project Structure
 
