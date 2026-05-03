@@ -77,4 +77,10 @@ def handle_cover_letter(job_title: str, job_description: str, model):
         "cover_letter": ""
     }
 
-    return workflow.invoke(initial_state)
+    result = workflow.invoke(initial_state)
+
+    return {
+            "status": "success",
+            "resume_bullets": result.get("resume_bullets", ""),
+            "cover_letter": result.get("cover_letter", "")
+        }
