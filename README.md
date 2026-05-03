@@ -1,7 +1,7 @@
 ﻿# 🚀 GenAI Playground
 
 A multi-functional Generative AI application built using **LangGraph StateGraphs**, **FastAPI**, and **Streamlit**, powered by **Gemini models**. This project showcases multiple real-world GenAI use cases including blog generation, document Q&A, analytics, and automation tools.
-
+This project is a lightweight prototype (POC) that demonstrates key ideas from production systems and enhancing them by focusing on multi-agent orchestration, intelligent routing and LLM-based response generation.
 ---
 
 ## 📌 Features
@@ -116,15 +116,20 @@ Technical Agent   Billing Agent   General Agent   Escalation Agent
 * **Language**: Python
 
 ---
-###🏗️ **Production Experience**
-While this repository demonstrates a simplified prototype, similar systems have been implemented in production environments with:
+###🏗️ Production Experience & Deployment
 
-- Dockerized services for scalable deployments
-- CI/CD pipelines using GitHub Actions
-- Infrastructure provisioning using Terraform
-- Cloud deployment (AWS and GCP )
-- Secure API key using AWS secret managers
-- Monitoring and logging for observability using AWS Putty
+While this repository demonstrates a simplified prototype of a multi-agent customer support system, similar architectures have been implemented in real-world client projects with full production-grade practices.
+
+In production environments, these systems included:
+
+* 🐳 **Containerization** using Docker for consistent and scalable deployments
+* ⚙️ **CI/CD pipelines** built with GitHub Actions for automated build, test, and deployment workflows
+* 🌐 **Cloud deployment** on platforms such as AWS and GCP for high availability and scalability
+* 🏗️ **Infrastructure as Code (IaC)** using Terraform for provisioning and managing cloud resources
+* 🔐 **Secure secret management** using AWS Secrets Manager.
+* 📊 **Monitoring & logging** for observability, debugging, and performance tracking using AWS Putty
+
+This project serves as a **lightweight, modular representation** of those production systems, focusing on core logic such as multi-agent orchestration, routing, and LLM-driven response generation.
 ---
 
 ## 📂 Project Structure
