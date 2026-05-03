@@ -130,7 +130,6 @@ In production environments, these systems included:
 * 🔐 **Secure secret management** using AWS Secrets Manager.
 * 📊 **Monitoring & logging** for observability, debugging, and performance tracking using AWS Putty
 
-This project serves as a **lightweight, modular representation** of those production systems, focusing on core logic such as multi-agent orchestration, routing, and LLM-driven response generation.
 ---
 
 ## 📂 Project Structure
