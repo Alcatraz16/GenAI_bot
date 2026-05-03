@@ -2,6 +2,7 @@
 
 A multi-functional Generative AI application built using **LangGraph StateGraphs**, **FastAPI**, and **Streamlit**, powered by **Gemini models**. This project showcases multiple real-world GenAI use cases including blog generation, document Q&A, analytics, and automation tools.
 This project is a lightweight prototype (POC) that demonstrates key ideas from production systems and enhancing them by focusing on multi-agent orchestration, intelligent routing and LLM-based response generation.
+
 ---
 
 ## 📌 Features
@@ -116,7 +117,7 @@ Technical Agent   Billing Agent   General Agent   Escalation Agent
 * **Language**: Python
 
 ---
-###🏗️ Production Experience & Deployment
+### 🏗️ Production Experience & Deployment
 
 While this repository demonstrates a simplified prototype of a multi-agent customer support system, similar architectures have been implemented in real-world client projects with full production-grade practices.
 
